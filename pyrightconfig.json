@@ -1,0 +1,14 @@
+{
+    "include": [
+        "app",
+        "run.py",
+        "config.py"
+    ],
+    "venv": "venv",
+    "venvPath": ".",
+    "executionEnvironments": [
+        {
+            "root": "app"
+        }
+    ]
+}
