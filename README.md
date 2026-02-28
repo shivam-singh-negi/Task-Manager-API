@@ -1,10 +1,10 @@
 # Task Manager API
 
-A high-performance, RESTful API for managing tasks with advanced user authentication, role-based access control, and comprehensive documentation. Built as per the **r-ztm-f-d** specification using **Flask**, **SQLAlchemy**, and **JWT**.
+A high-performance, RESTful API for managing tasks with advanced user authentication, role-based access control, and comprehensive documentation. Built using **Flask**, **SQLAlchemy**, and **JWT**.
 
 ---
 
-## 🚀 Requirement Compliance (r-ztm-f-d)
+## 🚀 Requirement Compliance 
 
 This project has been meticulously developed to exceed all requirements specified in the objective:
 
@@ -448,5 +448,5 @@ docker-compose up -d --build
 
 ---
 
-Built with ❤️ by **Shivam Singh Negi**
-**Status:** ✅ Production Ready | **Version:** 1.0.0
+Built by **Shivam Singh Negi**
+**Status:** ✅ Stable  **Version:** 1.0.0
