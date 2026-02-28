@@ -2,6 +2,7 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask
+import sys
 from flask_jwt_extended import JWTManager
 from flasgger import Flasgger
 from config import config
@@ -44,6 +45,14 @@ def setup_logging(app):
     # Add handlers to Flask app logger
     app.logger.addHandler(info_handler)
     app.logger.addHandler(error_handler)
+    # Stream handler so logs appear in container stdout (docker logs)
+    stream_handler = logging.StreamHandler(stream=sys.stdout)
+    stream_handler.setLevel(logging.INFO)
+    stream_handler.setFormatter(formatter)
+    app.logger.addHandler(stream_handler)
+    # Ensure Flask/werkzeug logs propagate to root handlers
+    logging.getLogger('werkzeug').handlers = app.logger.handlers
+    app.logger.propagate = True
     app.logger.setLevel(logging.INFO)
     
     app.logger.info('--- Logging setup complete. Application starting... ---')
@@ -161,6 +170,21 @@ def create_app(config_name=None):
     with app.app_context():
         db.create_all()
     
+    # Helpful developer-facing links (logged at startup)
+    swagger_ui_path = "/apidocs/"
+    apispec_path = "/apispec_1.json"
+    app.logger.info(f"Swagger UI available at: http://127.0.0.1:5000{swagger_ui_path}")
+    app.logger.info(f"Swagger JSON spec available at: http://127.0.0.1:5000{apispec_path}")
+    app.logger.info(f"Health check: http://127.0.0.1:5000/api/health")
+    app.logger.info(f"Base API URL: http://127.0.0.1:5000/api")
+
+    # Redirect root to Swagger UI for convenience
+    from flask import redirect
+
+    @app.route('/')
+    def index():
+        return redirect(swagger_ui_path)
+
     return app
 
 if __name__ == '__main__':

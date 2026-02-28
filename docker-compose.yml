@@ -1,11 +1,10 @@
-version: '3.8'
-
 services:
   api:
     build: .
     container_name: task-manager-api
+    # Allow overriding the host port with HOST_PORT; default to 5001 to avoid conflicts
     ports:
-      - "5000:5000"
+      - "${HOST_PORT:-5001}:5000"
     volumes:
       - .:/app
     env_file:

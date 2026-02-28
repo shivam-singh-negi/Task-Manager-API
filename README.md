@@ -128,6 +128,27 @@ When using `docker-compose`, a volume named `db_data` is created to ensure your 
 ### Base URL
 `http://127.0.0.1:5000/api`
 
+### API Docs & Swagger
+- **Swagger UI (local)**: http://127.0.0.1:5000/apidocs/ (when running `python run.py`)
+- **Swagger JSON (OpenAPI spec)**: http://127.0.0.1:5000/apispec_1.json
+- **Health check**: http://127.0.0.1:5000/api/health
+- **Base API**: http://127.0.0.1:5000/api
+
+When running with Docker Compose the host port is configurable to avoid conflicts. By default the compose file maps host port `5001` to container `5000`.
+
+- **Swagger UI (Docker default)**: http://127.0.0.1:5001/apidocs/
+- **Swagger JSON (Docker default)**: http://127.0.0.1:5001/apispec_1.json
+
+To change the host port, set the `HOST_PORT` environment variable before running `docker compose up`. Example (PowerShell):
+```powershell
+$env:HOST_PORT = "5002"
+docker compose up --build
+```
+Or pass it inline:
+```powershell
+HOST_PORT=5002 docker compose up --build
+```
+
 ### HTTP Status Codes
 | Code | Meaning |
 | :--- | :--- |
