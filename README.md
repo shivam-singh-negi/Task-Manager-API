@@ -413,6 +413,27 @@ find . -name ".pytest_cache" -type d -exec rm -rf {} +
 
 ---
 
+## 🚀 Production Deployment
+
+To ensure the highest level of security and performance, the project is configured with a production-ready stack:
+
+### **WSGI Server: Gunicorn**
+While the local development server is used for debugging, the **Dockerfile** is configured to use **Gunicorn** in production. Gunicorn is a high-performance HTTP server that can handle multiple simultaneous requests efficiently.
+
+### **Production Security Checklist**
+Before deploying to a public server, ensure the following environment variables are set:
+
+1.  **`FLASK_ENV`**: Set to `production`. This disables debug mode and prevents sensitive information from being leaked in error messages.
+2.  **`SECRET_KEY`**: Set a long, random string. This is used for session signing.
+3.  **`JWT_SECRET_KEY`**: Set another unique string for JWT token generation.
+
+**Example Command to run in Prod**:
+```bash
+docker-compose up -d --build
+```
+
+---
+
 ## 📝 Submission & Evaluation
 
 ### Repository Link

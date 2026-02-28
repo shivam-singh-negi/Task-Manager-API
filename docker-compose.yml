@@ -11,6 +11,6 @@ services:
     env_file:
       - .env
     environment:
-      - FLASK_ENV=development
-      - DATABASE_URL=sqlite:////app/instance/task_manager.db
+      - FLASK_ENV=${FLASK_ENV:-production}
+      - DATABASE_URL=${DATABASE_URL:-sqlite:////app/instance/task_manager.db}
     restart: always

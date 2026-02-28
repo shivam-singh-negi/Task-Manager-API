@@ -27,8 +27,13 @@ EXPOSE 5000
 
 # Define environment variables
 ENV FLASK_APP=run.py
-ENV FLASK_ENV=development
+ENV FLASK_ENV=production
 ENV PYTHONUNBUFFERED=1
 
-# Run the application
-CMD ["python", "run.py"]
+# Create a non-root user for security
+RUN useradd -m appuser
+RUN chown -R appuser:appuser /app
+USER appuser
+
+# Run the application with Gunicorn for production
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--threads", "2", "run:app"]
